@@ -1,7 +1,37 @@
-header{
+header {
     display: flex;
     justify-content: space-between;
+    padding: 0 20px;
+    color: #fff;
+    /* 背景色をblackにして綺麗に表示されていたらblackをinheritに変更 */
+    background-color: black;
 }
-.header-nav ul{
+
+.header-logo {
+    padding: 20px 0;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.header-nav ul {
     display: flex;
+    padding: 22px 0;
+}
+
+.header-nav li {
+    margin-left: 55px;
+    font-size: 15px;
+}
+
+footer {
+    background-color: #191919;
+    height: 50px;
+}
+
+.company-info {
+    text-align: center;
+    line-height:50px; 
+    font-weight: bold;
+    font-size: 12px;
+    color: #FFF;
 }
