@@ -17,6 +17,35 @@
 }
 
 
+.title {
+    /* 中の文が複数のフォントで書かれている為、改行させないよう */
+    white-space: nowrap;
+
+    display: flex;
+    padding-bottom: 60px;
+    justify-content: center;
+    align-items: center;
+    font-style: italic;
+    font-size: 18px;
+    text-align: center;
+}
+
+.title::before {
+    display: inline-block;
+    width: 30px;
+    margin-right: 20px;
+    border-top: 1px solid #191919;
+    content: "";
+}
+
+.title::after {
+    display: inline-block;
+    width: 30px;
+    margin-left: 20px;
+    border-top: 1px solid #191919;
+    content: "";
+}
+
 /* ----------header---------- */
 header {
     width: 100%;
@@ -75,6 +104,55 @@ header {
     border-top: 1px solid #FFF;
 }
 
+/* ----------about---------- */
+#about {
+    color: #191919;
+    background-color: #F8F8F8;
+}
+
+.inner {
+    width: 1100px;
+    padding: 90px 0;
+    margin: 0 auto;
+}
+
+.title-b {
+    font-weight: bold;
+}
+
+.about-wrap {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top:60px;
+}
+
+.about-item {
+    width: 300px;
+    height: 315px;
+    padding: 35px 50px 50px;
+    margin: auto;
+    text-align: center;
+    background-color: #FFFFFF;
+}
+
+.about-item:nth-child(n+4):nth-child(-n+6){
+    margin-top: 47px;
+}
+.about-item_title{
+    font-size: 22px;
+}
+.about-item_img img{
+    width: 122px;
+    height: 122px;
+    margin: 20px 0 25px;
+}
+.about-item_desc{
+    font-size: 13px;
+}
+
+/* ----------news---------- */
+
+
 /* ----------entry---------- */
 #entry {
     background-color: #FFF;
@@ -97,6 +175,9 @@ header {
 #entry .entry-btn {
     width: 320px;
 }
+
+/* ----------contact---------- */
+
 
 /* ----------footer---------- */
 footer {
