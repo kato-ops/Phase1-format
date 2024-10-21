@@ -1,10 +1,32 @@
+/* ----------共通---------- */
+.entry-btn {
+    width: 200px;
+    height: 50px;
+    text-align: center;
+    border: none;
+    border-radius: 5px;
+    background: linear-gradient(-90deg, #283C86, #06BEB6);
+    box-shadow: 0px 5px #070707;
+    font-weight: bold;
+    font-size: 15px;
+    color: #FFF;
+}
+
+.fa-door-open {
+    padding-right: 4px;
+}
+
+
+/* ----------header---------- */
 header {
+    width: 100%;
     display: flex;
     justify-content: space-between;
     padding: 0 20px;
     color: #fff;
-    /* 背景色をblackにして綺麗に表示されていたらblackをinheritに変更 */
-    background-color: black;
+    background-color: inherit;
+    position: absolute;
+    z-index: 10;
 }
 
 .header-logo {
@@ -23,6 +45,60 @@ header {
     font-size: 15px;
 }
 
+/* ----------first-v---------- */
+#first-v {
+    height: 770px;
+    background-image: url("../img/bg1.png");
+    background-size: cover;
+    position: relative;
+}
+
+.first-v-wrap {
+    padding: 285px 0 255px;
+    margin: 0 auto;
+    width: 250px;
+    text-align: center;
+}
+
+.first-v-title {
+    margin-bottom: 150px;
+    font-weight: bold;
+    font-size: 27px;
+    color: #FFF;
+}
+
+.first-v-title::after {
+    display: block;
+    content: "";
+    width: 100px;
+    margin: 20px auto 0;
+    border-top: 1px solid #FFF;
+}
+
+/* ----------entry---------- */
+#entry {
+    background-color: #FFF;
+}
+
+.entry-wrap {
+    padding: 175px 0;
+    margin: 0 auto;
+    width: 400px;
+    text-align: center;
+}
+
+.entry-title {
+    margin-bottom: 55px;
+    font-weight: bold;
+    font-size: 18px;
+    color: #191919;
+}
+
+#entry .entry-btn {
+    width: 320px;
+}
+
+/* ----------footer---------- */
 footer {
     background-color: #191919;
     height: 50px;
@@ -30,7 +106,7 @@ footer {
 
 .company-info {
     text-align: center;
-    line-height:50px; 
+    line-height: 50px;
     font-weight: bold;
     font-size: 12px;
     color: #FFF;
