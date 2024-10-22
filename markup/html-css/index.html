@@ -145,6 +145,32 @@
         </section>
 
         <section id="contact">
+            <div class="inner">
+                <div class="title">Contact</div>
+                <div class="contact-wrap">
+                    <p class="contact-caution"><span class="red">*</span> が付いたフィールドは必須項目です。</p>
+                    <div class="contact-box">
+                        <p class="contact-text">お名前<span class="red">*</span></p>
+                        <input type="text" name="contact-name" placeholder="名前をご記入ください">
+                    </div>
+                    <div class="contact-box">
+                        <p class="contact-text">メールアドレス<span class="red">*</span></p>
+                        <input type="email" name="contact-mail" placeholder="メールアドレスをご記入ください">
+                    </div>
+                    <div class="contact-box">
+                        <p class="contact-text">お問い合わせ内容<span class="red">*</span></p>
+                        <select name="contact-select" class="select-box">
+                            <option value="service">サービスに関するお問い合わせ</option>
+                            <option value="recruit">採用に関するお問い合わせ</option>
+                            <option value="other">その他のお問い合わせ</option>
+                        </select>
+                    </div>
+                    <div class="contact-box">
+                        <p class="contact-text">お問い合わせ詳細<span class="red">*</span></p>
+                        <textarea name="contact-text" placeholder="お問い合わせ内容の詳細をご記入ください"></textarea>
+                    </div>
+                </div>
+            </div>
         </section>
 
     </main>

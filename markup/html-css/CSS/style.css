@@ -164,14 +164,12 @@ header {
 
 #news .title {
     color: #FFFFFF;
+    font-weight: bold;
 }
 
-#news .title::before {
-    border-top-color: #FFFFFF;
-}
-
+#news .title::before,
 #news .title::after {
-    border-top-color: #FFFFFF;
+    border-color: #FFFFFF;
 }
 
 .news-wrap {
@@ -209,7 +207,7 @@ header {
 .news-item_title {
     font-size: 14px;
     font-weight: bold;
-    margin-top:5px;
+    margin-top: 5px;
 }
 
 .news-item_desc {
@@ -241,7 +239,92 @@ header {
 }
 
 /* ----------contact---------- */
+#contact {
+    background-image: url("../img/bg3.png");
+    background-size: cover;
+    color: #FFFFFF;
+}
 
+#contact .title {
+    font-weight: bold;
+}
+
+#contact .title::before,
+#contact .title::after {
+    border-color: #FFFFFF;
+}
+
+.contact-wrap {
+    width: 600px;
+    margin: 0 auto;
+}
+
+.contact-caution {
+    margin: 20px 0 25px;
+    font-size: 15px;
+}
+
+.contact-box {
+    margin-bottom: 33px;
+}
+
+.contact-text {
+    margin-bottom: 10px;
+    font-size: 15px;
+}
+
+#contact input,
+#contact select,
+#contact textarea {
+    width: 100%;
+    border-radius: 7px;
+    padding: 15px;
+}
+
+#contact input,
+#contact select {
+    height: 55px;
+}
+
+#contact textarea {
+    height: 185px;
+}
+
+#contact select {
+    appearance: none;
+}
+
+.contact-box:nth-of-type(3) {
+    position: relative;
+}
+
+.contact-box:nth-of-type(3)::after {
+    position: absolute;
+    background-image: url("../img/arrow.png");
+    background-size: 100%;
+    display: block;
+    content: "";
+    width: 15px;
+    height: 15px;
+    top: 60%;
+    right: 20px;
+    /* 画像部分をクリックするとセレクトボックスが反応しなかったので */
+    pointer-events: none;
+}
+
+.contact-box:nth-of-type(4) {
+    margin-bottom: 0;
+}
+
+.red {
+    color: red;
+    margin-left: 8px;
+}
+
+.contact-caution .red {
+    margin-left: 0;
+    margin-right: 8px;
+}
 
 /* ----------footer---------- */
 footer {
