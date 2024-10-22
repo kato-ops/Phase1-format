@@ -16,6 +16,40 @@
     padding-right: 4px;
 }
 
+.inner {
+    width: 1100px;
+    padding: 90px 0;
+    margin: 0 auto;
+}
+
+.title {
+    /* 中の文が複数のフォントで書かれている為、改行させないよう */
+    white-space: nowrap;
+
+    display: flex;
+    padding-bottom: 60px;
+    justify-content: center;
+    align-items: center;
+    font-style: italic;
+    font-size: 18px;
+    text-align: center;
+}
+
+.title::before {
+    content: "";
+    display: inline-block;
+    width: 30px;
+    margin-right: 20px;
+    border-top: 1px solid #191919;
+}
+
+.title::after {
+    content: "";
+    display: inline-block;
+    width: 30px;
+    margin-left: 20px;
+    border-top: 1px solid #191919;
+}
 
 /* ----------header---------- */
 header {
@@ -75,6 +109,112 @@ header {
     border-top: 1px solid #FFF;
 }
 
+/* ----------about---------- */
+#about {
+    color: #191919;
+    background-color: #F8F8F8;
+}
+
+.title-b {
+    font-weight: bold;
+}
+
+.about-wrap {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 20px;
+}
+
+.about-item {
+    width: 300px;
+    height: 315px;
+    padding: 35px 50px 50px;
+    margin: auto;
+    text-align: center;
+    background-color: #FFFFFF;
+}
+
+.about-item:nth-child(n+4):nth-child(-n+6) {
+    margin-top: 47px;
+}
+
+.about-item_title {
+    font-size: 22px;
+}
+
+.about-item_img {
+    width: 122px;
+    height: 122px;
+    margin: 20px auto 25px;
+}
+
+.about-item_img img {
+    width: 100%;
+}
+
+.about-item_desc {
+    font-size: 13px;
+}
+
+/* ----------news---------- */
+#news {
+    background-image: url("../img/bg2.png");
+    background-size: cover;
+}
+
+#news .title {
+    color: #FFFFFF;
+    font-weight: bold;
+}
+
+#news .title::before,
+#news .title::after {
+    border-color: #FFFFFF;
+}
+
+.news-wrap {
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 20px;
+}
+
+.news-item {
+    width: 336px;
+    height: 400px;
+    background-color: #FFFFFF;
+}
+
+.news-item_img {
+    width: 100%;
+    height: 207px;
+    overflow: hidden;
+}
+
+.news-item_img img {
+    width: 100%;
+}
+
+.news-content {
+    margin: 0 20px;
+}
+
+.news-item_date {
+    font-size: 10px;
+    font-weight: bold;
+    margin-top: 15px;
+}
+
+.news-item_title {
+    font-size: 14px;
+    font-weight: bold;
+    margin-top: 5px;
+}
+
+.news-item_desc {
+    font-size: 12px;
+    margin-top: 15px;
+}
+
 /* ----------entry---------- */
 #entry {
     background-color: #FFF;
@@ -96,6 +236,95 @@ header {
 
 #entry .entry-btn {
     width: 320px;
+}
+
+/* ----------contact---------- */
+#contact {
+    background-image: url("../img/bg3.png");
+    background-size: cover;
+    color: #FFFFFF;
+}
+
+#contact .title {
+    font-weight: bold;
+}
+
+#contact .title::before,
+#contact .title::after {
+    border-color: #FFFFFF;
+}
+
+.contact-wrap {
+    width: 600px;
+    margin: 0 auto;
+}
+
+.contact-caution {
+    margin: 20px 0 25px;
+    font-size: 15px;
+    font-weight: lighter;
+}
+
+.contact-box {
+    margin-bottom: 33px;
+}
+
+.contact-text {
+    margin-bottom: 10px;
+    font-size: 15px;
+}
+
+#contact input,
+#contact select,
+#contact textarea {
+    width: 100%;
+    border-radius: 7px;
+    padding: 15px;
+}
+
+#contact input,
+#contact select {
+    height: 55px;
+}
+
+#contact textarea {
+    height: 185px;
+}
+
+#contact select {
+    appearance: none;
+}
+
+.contact-box:nth-of-type(3) {
+    position: relative;
+}
+
+.contact-box:nth-of-type(3)::after {
+    position: absolute;
+    background-image: url("../img/arrow.png");
+    background-size: 100%;
+    display: block;
+    content: "";
+    width: 15px;
+    height: 15px;
+    top: 60%;
+    right: 20px;
+    /* 画像部分をクリックするとセレクトボックスが反応しなかったので */
+    pointer-events: none;
+}
+
+.contact-box:nth-of-type(4) {
+    margin-bottom: 0;
+}
+
+.red {
+    color: red;
+    margin-left: 8px;
+}
+
+.contact-caution .red {
+    margin-left: 0;
+    margin-right: 8px;
 }
 
 /* ----------footer---------- */
