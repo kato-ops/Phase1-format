@@ -8,22 +8,50 @@ const determineResult = (a, b) => {
     a = parseInt(a);
     b = parseInt(b);
 
-    if (a === b) {
-        result = 2;
+    // シンプルに総当り
+    // if (a === b) {
+    //     result = 2;
+    // }
+    // else {
+    //     switch (a) {
+    //         case 0:
+    //             result = b === 1 ? 0 : 1;
+    //             break;
+    //         case 1:
+    //             result = b === 2 ? 0 : 1;
+    //             break;
+    //         case 2:
+    //             result = b === 0 ? 0 : 1;
+    //             break;
+    //     }
+    // }
+
+    // ビット演算
+    const hands = [a, b];
+    let bitOr = 0;
+
+    for (let i = 0; i < hands.length; i++) {
+        bitOr |= 1 << hands[i];
     }
-    else {
-        switch (a) {
-            case 0:
-                result = b === 1 ? 0 : 1;
-                break;
-            case 1:
-                result = b === 2 ? 0 : 1;
-                break;
-            case 2:
-                result = b === 0 ? 0 : 1;
-                break;
-        }
+
+    switch (bitOr) {
+        case 1:
+        case 2:
+        case 4:
+        case 7:
+            result = 2;
+            break;
+        case 3:
+            result = a === 0 ? 0 : 1;
+            break;
+        case 5:
+            result = a === 2 ? 0 : 1;
+            break;
+        case 6:
+            result = a === 1 ? 0 : 1;
+            break;
     }
+
     //a win = 0, fail = 1, draw = 2
     return result;
 };
