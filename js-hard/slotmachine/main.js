@@ -14,11 +14,25 @@ const nowTime = [
     ]
 ];
 
+const setTime = [
+    document.getElementById("setTime1"),
+    document.getElementById("setTime2"),
+    document.getElementById("setTime3")
+];
+const startTimer = document.getElementById("startTimer");
+
 let nowNumber = [
     [9, 0, 1],
     [9, 0, 1],
     [9, 0, 1]
 ];
+
+for (let column = 0; column < 3; column++) {
+    for (let row = 0; row < 3; row++) {
+        nowTime[column][row].textContent = nowNumber[column][row];
+    }
+    setTime[column].disabled = true;
+}
 
 const spinNumber = (column) => {
     for (let row = 0; row < 3; row++) {
@@ -31,13 +45,6 @@ const spinNumber = (column) => {
         nowTime[column][row].textContent = nowNumber[column][row];
     }
 };
-
-const setTime = [
-    document.getElementById("setTime1"),
-    document.getElementById("setTime2"),
-    document.getElementById("setTime3")
-];
-const startTimer = document.getElementById("startTimer");
 
 const compareArray = (a, b) => {
     if (Array.isArray(a) && Array.isArray(b)) {
@@ -58,23 +65,17 @@ const compareArray = (a, b) => {
     return true;
 };
 
-
-for (let column = 0; column < 3; column++) {
-    for (let row = 0; row < 3; row++) {
-        nowTime[column][row].textContent = nowNumber[column][row];
-    }
-    setTime[column].disabled = true;
-}
-
-
 let spinId = [];
 let isSpin = [false, false, false];
 
 startTimer.addEventListener("click", () => {
     for (let column = 0; column < 3; column++) {
         if (isSpin[column] === false) {
-            spinId[column] = setInterval(spinNumber, 100, column);
+            spinId[column] = setInterval(spinNumber, 1000, column);
             isSpin[column] = true;
+        }
+        for (let row = 0; row < 3; row++) {
+            nowTime[column][row].style.backgroundColor = "transparent";
         }
         setTime[column].disabled = false;
     }
@@ -87,8 +88,33 @@ for (let column = 0; column < 3; column++) {
         setTime[column].disabled = true;
 
         if (compareArray(isSpin, [false, false, false])) {
-            // スロットの停止後判定
-            console.log("test");
+            if (nowNumber[0][1] === nowNumber[1][1] && nowNumber[1][1] === nowNumber[2][1]) {
+                nowTime[0][1].style.backgroundColor = "orange";
+                nowTime[1][1].style.backgroundColor = "orange";
+                nowTime[2][1].style.backgroundColor = "orange";
+                setTimeout(() => {
+                    window.alert("おめでとう");
+                }, 0);
+            }
+            else if (nowNumber[0][0] === nowNumber[1][1] && nowNumber[1][1] === nowNumber[2][2]) {
+                nowTime[0][0].style.backgroundColor = "orange";
+                nowTime[1][1].style.backgroundColor = "orange";
+                nowTime[2][2].style.backgroundColor = "orange";
+                setTimeout(() => {
+                    window.alert("おめでとう");
+                }, 0);
+            }
+            else if (nowNumber[0][2] === nowNumber[1][1] && nowNumber[1][1] === nowNumber[2][0]) {
+                nowTime[0][2].style.backgroundColor = "orange";
+                nowTime[1][1].style.backgroundColor = "orange";
+                nowTime[2][0].style.backgroundColor = "orange";
+                setTimeout(() => {
+                    window.alert("おめでとう");
+                }, 0);
+            }
+            else {
+                window.alert("再挑戦");
+            }
         }
     });
 }
