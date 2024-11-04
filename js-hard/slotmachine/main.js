@@ -1,5 +1,7 @@
 const nowTime = [
     [
+        //document.querySelectorAll(".slot:nth-child(1)")
+        //とかならまとめて取れる
         document.getElementById("nowTime4"),
         document.getElementById("nowTime"),
         document.getElementById("nowTime7")
@@ -46,6 +48,7 @@ const spinNumber = (column) => {
     }
 };
 
+//別になくてもいいというか…
 const compareArray = (a, b) => {
     if (Array.isArray(a) && Array.isArray(b)) {
         if (a.length === b.length) {
@@ -65,12 +68,14 @@ const compareArray = (a, b) => {
     return true;
 };
 
+//グローバル変数は使う場所というよりは、まとめて何が有るのか？を見やすくしたほうが良い。
 let spinId = [];
 let isSpin = [false, false, false];
 
 startTimer.addEventListener("click", () => {
     for (let column = 0; column < 3; column++) {
         if (isSpin[column] === false) {
+            //間違ってはいないが、無名関数で引数渡しちゃったほうが見やすい
             spinId[column] = setInterval(spinNumber, 1000, column);
             isSpin[column] = true;
         }
@@ -87,6 +92,7 @@ for (let column = 0; column < 3; column++) {
         isSpin[column] = false;
         setTime[column].disabled = true;
 
+        //やりたいことは、全部falseか？なので、array.every((ele)=>!ele)とかの方が良いかも
         if (compareArray(isSpin, [false, false, false])) {
             if (nowNumber[0][1] === nowNumber[1][1] && nowNumber[1][1] === nowNumber[2][1]) {
                 nowTime[0][1].style.backgroundColor = "orange";
