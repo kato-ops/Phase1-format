@@ -1,26 +1,20 @@
 const nowTime = [
-    [
-        //document.querySelectorAll(".slot:nth-child(1)")
-        //とかならまとめて取れる
-        document.getElementById("nowTime4"),
-        document.getElementById("nowTime"),
-        document.getElementById("nowTime7")
-    ], [
-        document.getElementById("nowTime5"),
-        document.getElementById("nowTime2"),
-        document.getElementById("nowTime8")
-    ], [
-        document.getElementById("nowTime6"),
-        document.getElementById("nowTime3"),
-        document.getElementById("nowTime9")
-    ]
+    //slotクラスの子要素pの1番目
+    Array.from(document.querySelectorAll(".slot p:nth-child(1)")),
+    //とにかく子要素のという意味合いでスペースを開けても出来る
+    //スペース開け忘れると、slotの中で何番目のを取ってしまうので注意
+    Array.from(document.querySelectorAll(".slot :nth-child(2)")),
+    //スプレッド構文でバラして配列に格納
+    [...document.querySelectorAll(".slot p:nth-child(3)")]
 ];
 
-const setTime = [
-    document.getElementById("setTime1"),
-    document.getElementById("setTime2"),
-    document.getElementById("setTime3")
-];
+// const setTime = [
+//     document.getElementById("setTime1"),
+//     document.getElementById("setTime2"),
+//     document.getElementById("setTime3")
+// ];
+const setTime = [...document.querySelectorAll("input:nth-child(-n+3)")];
+
 const startTimer = document.getElementById("startTimer");
 
 let nowNumber = [
@@ -28,6 +22,9 @@ let nowNumber = [
     [9, 0, 1],
     [9, 0, 1]
 ];
+
+let spinId = [];
+let isSpin = [false, false, false];
 
 for (let column = 0; column < 3; column++) {
     for (let row = 0; row < 3; row++) {
@@ -48,35 +45,10 @@ const spinNumber = (column) => {
     }
 };
 
-//別になくてもいいというか…
-const compareArray = (a, b) => {
-    if (Array.isArray(a) && Array.isArray(b)) {
-        if (a.length === b.length) {
-            for (let i = 0; i < a.length; i++) {
-                if (a[i] !== b[i]) {
-                    return false;
-                }
-            }
-        }
-        else {
-            return false;
-        }
-    }
-    else {
-        return false;
-    }
-    return true;
-};
-
-//グローバル変数は使う場所というよりは、まとめて何が有るのか？を見やすくしたほうが良い。
-let spinId = [];
-let isSpin = [false, false, false];
-
 startTimer.addEventListener("click", () => {
     for (let column = 0; column < 3; column++) {
         if (isSpin[column] === false) {
-            //間違ってはいないが、無名関数で引数渡しちゃったほうが見やすい
-            spinId[column] = setInterval(spinNumber, 1000, column);
+            spinId[column] = setInterval(() => spinNumber(column), 100);
             isSpin[column] = true;
         }
         for (let row = 0; row < 3; row++) {
@@ -92,8 +64,9 @@ for (let column = 0; column < 3; column++) {
         isSpin[column] = false;
         setTime[column].disabled = true;
 
-        //やりたいことは、全部falseか？なので、array.every((ele)=>!ele)とかの方が良いかも
-        if (compareArray(isSpin, [false, false, false])) {
+        //Array.every(判定式) 判定式で 値 === false かを見たい
+        //falseならtrueを返したいので!で反転させれば良い
+        if (isSpin.every(ele => !ele)) {
             if (nowNumber[0][1] === nowNumber[1][1] && nowNumber[1][1] === nowNumber[2][1]) {
                 nowTime[0][1].style.backgroundColor = "orange";
                 nowTime[1][1].style.backgroundColor = "orange";
