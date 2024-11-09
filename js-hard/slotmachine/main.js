@@ -1,3 +1,7 @@
+//要素をオブジェクト化するといい
+//array.foreachとか使ったほうが良い
+//forで配列回すと読む時にあの値は何で…とか考える必要があるので
+
 const nowTime = [
     //slotクラスの子要素pの1番目
     Array.from(document.querySelectorAll(".slot p:nth-child(1)")),
