@@ -1,7 +1,10 @@
+const columnElements = [1, 2, 3];
+const rowElements = [1, 2, 3];
+
 //スロットの数値要素など＋縦列のボタンを収めたオブジェクト
-const slotObject = [1, 2, 3].map((col) => {
+const slotObject = columnElements.map((col) => {
     return {
-        row: [1, 2, 3].map((row) => {
+        row: rowElements.map((row) => {
             return {
                 slot: document.querySelectorAll(`.slot p:nth-child(${col})`)[row - 1],
                 number: row
@@ -48,8 +51,7 @@ const hitSlot = (obj) => {
         return col.row[1];
     });
     const leftDiagonal = obj.map((col, i) => {
-        const len = 2;
-        return col.row[len - i];
+        return col.row[obj.length - 1 - i];
     });
 
     if (rightDiagonal.every((ele) => ele.number === rightDiagonal[0].number)) {
