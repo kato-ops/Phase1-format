@@ -1,5 +1,5 @@
-const columnElements = [1, 2, 3];
-const rowElements = [1, 2, 3];
+const columnElements = new Array(3).fill(0).map((_, i) => i + 1);
+const rowElements = new Array(3).fill(0).map((_, i) => i + 1);
 
 //スロットの数値要素など＋縦列のボタンを収めたオブジェクト
 const slotObject = columnElements.map((col) => {
