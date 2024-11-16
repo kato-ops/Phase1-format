@@ -12,8 +12,15 @@ const isDuplicate = (ele, index, arr) => {
 
 const makeRandNum = () => {
     let num = [0, 0, 0];
+    let limit = 1000;
     while (num.some(isDuplicate)) {
-        num = num.map(() => Math.floor(Math.random() * 9))
+        num = num.map(() => Math.floor(Math.random() * 9));
+
+        limit--;
+        if (limit <= 0) {
+            console.log("ERR:infinite loop");
+            break;
+        }
     }
     return num;
 };
@@ -22,13 +29,17 @@ const countEatBite = (arr1, arr2) => {
     let eatNum = 0;
     let biteNUm = 0;
 
-    arr1.forEach((ele, index) => {
-        if (ele === arr2[index])
-            eatNum++;
-        if (ele === arr2[(index + 1) % 3])
-            biteNUm++;
-        if (ele === arr2[(index + 2) % 3])
-            biteNUm++;
+    arr1.forEach((ele1, index1) => {
+        arr2.forEach((ele2, index2) => {
+            if (ele1 === ele2) {
+                if (index1 === index2) {
+                    eatNum++;
+                }
+                else {
+                    biteNUm++;
+                }
+            }
+        });
     });
 
     return { eat: eatNum, bite: biteNUm };
@@ -41,8 +52,7 @@ remainTurn.textContent = `あと残り${remTurns}回です`;
 
 numCheck.addEventListener("click", () => {
     userNum = answerNum.value.toString().split(``).map(Number);
-    console.log(userNum.length)
-    if (userNum.length < 3 || userNum.length > 3) {
+    if (userNum.length !== 3) {
         window.alert("3桁の数を入れて下さい");
         return;
     }
@@ -52,7 +62,7 @@ numCheck.addEventListener("click", () => {
     }
 
     const result = countEatBite(cpNum, userNum);
-    window.alert(`${result.eat} EAT, ${result.bite} BITE`)
+    window.alert(`${result.eat} EAT, ${result.bite} BITE`);
     if (result.eat === 3) {
         window.alert("正解です！");
         cpNum = makeRandNum();
