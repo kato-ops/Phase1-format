@@ -1,5 +1,5 @@
-let cpNum = [0, 1, 2];
-let userNum = [0, 1, 2];
+let cpNum = new Array(3);
+let userNum = new Array(3);
 let remTurns = 10;
 
 const answerNum = document.getElementById("answerNum");
@@ -11,7 +11,7 @@ const isDuplicate = (ele, index, arr) => {
 };
 
 const makeRandNum = () => {
-    let num = [0, 0, 0];
+    let num = new Array(3).fill(0);
     let limit = 1000;
     while (num.some(isDuplicate)) {
         num = num.map(() => Math.floor(Math.random() * 9));
