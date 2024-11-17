@@ -1,3 +1,2 @@
-const a = new Array(4).fill(0);
-const b = a.map(Math.random);
-console.log(b);
+const a = new Array(4).fill(0).map(Math.random);
+console.log(a);
