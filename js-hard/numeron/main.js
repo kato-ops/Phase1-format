@@ -6,15 +6,18 @@ const answerNum = document.getElementById("answerNum");
 const numCheck = document.getElementById("numCheck");
 const remainTurn = document.getElementById("remainTurn");
 
-const isDuplicate = (ele, index, arr) => {
-    return ele === arr[(index + 1) % 3];
+const hasDuplicate = (array) => {
+    return new Set(array).size !== array.length;
 };
 
 const makeRandNum = () => {
-    let num = new Array(3).fill(0);
+    let num = [];
     let limit = 1000;
-    while (num.some(isDuplicate)) {
-        num = num.map(() => Math.floor(Math.random() * 10));
+    while (num.length < 3) {
+        const rand = Math.floor(Math.random() * 10);
+        if (!num.includes(rand)) {
+            num.push(rand);
+        }
 
         limit--;
         if (limit <= 0) {
@@ -56,7 +59,7 @@ numCheck.addEventListener("click", () => {
         window.alert("3桁の数を入れて下さい");
         return;
     }
-    if (userNum.some(isDuplicate)) {
+    if (hasDuplicate(userNum)) {
         window.alert("同じ数を2回使ってはいけません");
         return;
     }
