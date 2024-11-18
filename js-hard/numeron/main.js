@@ -14,7 +14,7 @@ const makeRandNum = () => {
     let num = [];
     let limit = 1000;
     while (num.length < 3) {
-        const rand = Math.floor(Math.random() * 9);
+        const rand = Math.floor(Math.random() * 10);
         if (!num.includes(rand)) {
             num.push(rand);
         }
