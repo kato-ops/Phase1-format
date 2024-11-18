@@ -14,7 +14,7 @@ const makeRandNum = () => {
     let num = new Array(3).fill(0);
     let limit = 1000;
     while (num.some(isDuplicate)) {
-        num = num.map(() => Math.floor(Math.random() * 9));
+        num = num.map(() => Math.floor(Math.random() * 10));
 
         limit--;
         if (limit <= 0) {
