@@ -2,13 +2,16 @@
 // document.body.appendChild(remTime);
 // const target = "2112-9-3";
 
+//input要素だとか分かる変数名にしちゃった方が
 const dateSet = document.getElementById("dateSet");
 const dateSearch = document.getElementById("dateSearch");
 const diffTime = document.getElementById("diffTime");
 
 let intervalID;
 
+//remだと圧縮しすぎ。初めてみた人が分かるように
 const getRemTime = targetTime => {
+    //durationオブジェクトだと分かるものに
     const remTime = moment.duration(moment(targetTime).diff(moment()));
     const remDays = Math.floor(remTime.asDays());
     const remHours = remTime.hours();
