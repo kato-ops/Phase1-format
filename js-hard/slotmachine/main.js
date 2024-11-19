@@ -2,10 +2,13 @@ const columnElements = new Array(3).fill(0).map((_, i) => i + 1);
 const rowElements = new Array(3).fill(0).map((_, i) => i + 1);
 
 //スロットの数値要素など＋縦列のボタンを収めたオブジェクト
+//オブジェクトとか中身的な意味合いじゃなくて、概念的に何か？を変数名にした方が良い
 const slotObject = columnElements.map((col) => {
     return {
+        //rowか？
         row: rowElements.map((row) => {
             return {
+                //これは要素だからそうした方が…
                 slot: document.querySelectorAll(`.slot p:nth-child(${col})`)[row - 1],
                 number: row
             }
@@ -18,6 +21,7 @@ const slotObject = columnElements.map((col) => {
 
 const startTimer = document.getElementById("startTimer");
 
+//仮引数も、それ単体で何入れれば良いのか分かるように
 const spinNumber = (ele) => {
     ele.row.forEach((row) => {
         if (row.number <= 0) {
