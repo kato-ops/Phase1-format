@@ -1,3 +1,4 @@
+//配列に空の使わないのは要らない
 let cpNum = new Array(3);
 let userNum = new Array(3);
 let remTurns = 10;
@@ -30,7 +31,7 @@ const makeRandNum = () => {
 
 const countEatBite = (arr1, arr2) => {
     let eatNum = 0;
-    let biteNUm = 0;
+    let biteNum = 0;
 
     arr1.forEach((ele1, index1) => {
         arr2.forEach((ele2, index2) => {
@@ -39,21 +40,23 @@ const countEatBite = (arr1, arr2) => {
                     eatNum++;
                 }
                 else {
-                    biteNUm++;
+                    biteNum++;
                 }
             }
         });
     });
 
-    return { eat: eatNum, bite: biteNUm };
+    return { eat: eatNum, bite: biteNum };
 };
 
-
+//init処理は処理でまとめたい
 cpNum = makeRandNum();
 console.log(cpNum);
 remainTurn.textContent = `あと残り${remTurns}回です`;
 
 numCheck.addEventListener("click", () => {
+    //この処理中でしか使わないから、constで定義しちゃったほうが
+    //あとtostring要らないらしい。valueは基本文字列だとか
     userNum = answerNum.value.toString().split(``).map(Number);
     if (userNum.length !== 3) {
         window.alert("3桁の数を入れて下さい");
@@ -66,6 +69,8 @@ numCheck.addEventListener("click", () => {
 
     const result = countEatBite(cpNum, userNum);
     window.alert(`${result.eat} EAT, ${result.bite} BITE`);
+
+    //処理として一まとまりなのはreturnで抜けたりすると逆に分かりにくい
     if (result.eat === 3) {
         window.alert("正解です！");
         cpNum = makeRandNum();
