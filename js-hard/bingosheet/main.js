@@ -1,57 +1,57 @@
-const view = document.getElementById("view");
-const hitNum = document.getElementById("hitNum");
-let bingo = [
-    ['B'],
-    ['I'],
-    ['N'],
-    ['G'],
-    ['O']
-]
+const bingoView = document.getElementById("view");
+const hitNumButton = document.getElementById("hitNum");
 
 const createRandArray = (len, min, max) => {
-    let arr = [];
-    let limit = 1000;
+    const arr = [];
     while (arr.length < len) {
         const rand = Math.floor(Math.random() * (max + 1 - min) + min);
         if (!arr.includes(rand)) {
             arr.push(rand);
-        }
-
-        limit--;
-        if (limit <= 0) {
-            console.log("ERR:infinite loop");
-            break;
         }
     }
     return arr;
 
     //JavaScriptのSetは順序が変更されないので、以下も可
     // const set = new Set();
-    // let limit = 1000;
     // while (set.size < len) {
     //     set.add(Math.floor(Math.random() * (max + 1 - min) + min));
-
-    //     limit--;
-    //     if (limit <= 0) {
-    //         console.log("ERR:infinite loop");
-    //         break;
-    //     }
     // }
     // return [...set];
 };
 
-bingo.forEach((ele, index) => {
-    ele.push(...createRandArray(5, index * 15 + 1, index * 15 + 15));
-});
-bingo[2][3] = "free";
+const sheetRow = new Array(6).fill(0).map(() => document.createElement("tr"));
 
-//これだと、行と列が逆になる。
-bingo.forEach((col)=>{
-    const tr = document.createElement("tr");
-    col.forEach((row)=>{
-        const td = document.createElement("td");
-        td.textContent = row;
-        tr.appendChild(td);
-    });
-    view.appendChild(tr);
+const bingo = {
+    header: "BINGO",
+    sheet: new Array(5).fill(0).map((_, index) => {
+        return createRandArray(5, index * 15 + 1, index * 15 + 15).map(num => {
+            return {
+                number: num,
+                element: document.createElement("td"),
+                isHit: false
+            }
+        });
+    })
+};
+
+bingo.sheet[2][2].number = 0;
+
+bingo.header.split('').forEach(chara => {
+    const headerView = document.createElement("td");
+    headerView.textContent = chara;
+    sheetRow[0].appendChild(headerView);
 });
+
+bingo.sheet.forEach(column => {
+    column.forEach((cell, index) => {
+        if (cell.number !== 0) {
+            cell.element.textContent = cell.number;
+        }
+        else {
+            cell.element.textContent = "free";
+        }
+        sheetRow[index + 1].appendChild(cell.element);
+    });
+});
+
+bingoView.append(...sheetRow);
