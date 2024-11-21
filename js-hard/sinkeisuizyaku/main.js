@@ -1,12 +1,13 @@
 const field = document.getElementById("panel");
-let cards = [1, 1, 2, 2, 3, 3, 4, 4].map(num => {
-    return {
-        number: num,
-        element: document.createElement("div")
-    };
-});
+let cards = [1, 1, 2, 2, 3, 3, 4, 4];
 let opendCards;
 let finishCount;
+let isDecision;
+
+cards.forEach(() => {
+    const element = document.createElement("div");
+    field.appendChild(element);
+});
 
 const cardShuffle = (array) => {
     const copyArray = [...array];
@@ -20,59 +21,57 @@ const cardShuffle = (array) => {
     // return _.shuffle(array);
 };
 
-const clickCard = card => {
-    card.element.textContent = card.number;
-    card.element.classList.remove("back");
-    card.element.classList.add("hober");
-    opendCards.push(card);
+const initGame = () => {
+    cards = cardShuffle(cards);
+    opendCards = [];
+    finishCount = 0;
+    isDecision = false;
+    [...field.children].forEach(element => {
+        element.className = "card back";
+    });
+}
+
+initGame();
+
+field.addEventListener("click", event => {
+    if (event.target === field) {
+        return;
+    }
+    if (isDecision === true) {
+        return;
+    }
+
+    const cardNum = cards[[...field.children].indexOf(event.target)];
+    event.target.textContent = cardNum;
+    event.target.classList.replace("back", "hober");
+    opendCards.push({ number: cardNum, element: event.target });
+
     if (opendCards.length === 2) {
+        isDecision = true;
         if (opendCards[0].number !== opendCards[1].number) {
             setTimeout(() => {
                 opendCards.forEach(({ element }) => {
                     element.textContent = "";
-                    element.classList.remove("hober");
-                    element.classList.add("back");
+                    element.classList.replace("hober", "back");
                 });
                 opendCards = [];
-            }, 500)
+                isDecision = false;
+            }, 500);
         }
         else {
             setTimeout(() => {
                 opendCards.forEach(({ element }) => {
-                    element.classList.remove("hober");
-                    element.classList.add("finish");
+                    element.classList.replace("hober", "finish");
                 });
-                opendCards = [];
                 finishCount += 2;
+                opendCards = [];
 
                 if (finishCount === 8) {
                     window.alert("終了です");
                     initGame();
                 }
-            }, 500)
+                isDecision = false;
+            }, 500);
         }
     }
-};
-
-const initGame = () => {
-
-    //前消ししてから追加だと何かcss残るんだけどなんで？
-    while (field.firstChild) {
-        field.removeChild(field.firstChild);
-    }
-
-    cards = cardShuffle(cards);
-    opendCards = [];
-    finishCount = 0;
-
-    cards.forEach(item => {
-        item.element.classList.add("card", "back");
-        //削除=>子要素再追加ってするとcssとかリスナーが残るっぽい。
-        //親要素のクリック=>ターゲット　で配列と対応とかが良いんだと思う。
-        //どうやって配列番号と対応させるんだ？id使わずに
-        item.element.addEventListener("click", () => { clickCard(item) });
-        field.appendChild(item.element);
-    });
-};
-
-initGame();
+});
