@@ -19,8 +19,6 @@ const createRandArray = (len, min, max) => {
     // return [...set];
 };
 
-const sheetRow = new Array(6).fill(0).map(() => document.createElement("tr"));
-
 const bingo = {
     header: "BINGO",
     sheet: new Array(5).fill(0).map((_, index) => {
@@ -28,7 +26,6 @@ const bingo = {
             return {
                 number: num,
                 element: document.createElement("td"),
-                isHit: false
             }
         });
     })
@@ -36,10 +33,12 @@ const bingo = {
 
 bingo.sheet[2][2].number = 0;
 
+const sheetRow = new Array(6).fill(0).map(() => document.createElement("tr"));
+
 bingo.header.split('').forEach(chara => {
-    const headerView = document.createElement("td");
-    headerView.textContent = chara;
-    sheetRow[0].appendChild(headerView);
+    const headerEle = document.createElement("td");
+    headerEle.textContent = chara;
+    sheetRow[0].appendChild(headerEle);
 });
 
 bingo.sheet.forEach(column => {
@@ -49,9 +48,19 @@ bingo.sheet.forEach(column => {
         }
         else {
             cell.element.textContent = "free";
+            cell.element.classList.add("hit-num");
         }
         sheetRow[index + 1].appendChild(cell.element);
     });
 });
 
 bingoView.append(...sheetRow);
+
+hitNumButton.addEventListener("click", () => {
+    const hitNumber = Math.floor(Math.random() * 75 + 1);
+    window.alert(`数字は${hitNumber}番です！`);
+    const hitCell = bingo.sheet.flat().find(({ number }) => number === hitNumber);
+    if (hitCell) {
+        hitCell.element.classList.add("hit-num");
+    }
+});
