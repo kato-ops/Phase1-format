@@ -1,27 +1,4 @@
-const reelSize = 3;
-const SymbolSize = 3;
-
-const slot = new Array(reelSize).fill(0).map((_, reelIndex) => {
-    const buttonElement = document.querySelector(`input:nth-child(${reelIndex + 1})`);
-    buttonElement.disabled = true;
-    return {
-        symbols: new Array(SymbolSize).fill(0).map((_, symbolIndex) => {
-            const symbolElement = document.querySelectorAll(`.slot p:nth-child(${reelIndex + 1})`)[symbolIndex];
-            symbolElement.textContent = symbolIndex;
-            return {
-                element: symbolElement,
-                number: symbolIndex
-            };
-        }),
-        stopButton: buttonElement,
-        spinId: null,
-        isSpin: false
-    };
-});
-
-const startButton = document.getElementById("startTimer");
-
-const spinReel = (reel) => {
+const spinReel = reel => {
     reel.symbols.forEach((content) => {
         if (content.number <= 0) {
             content.number = 9;
@@ -33,20 +10,7 @@ const spinReel = (reel) => {
     });
 };
 
-startButton.addEventListener("click", () => {
-    slot.forEach((reel) => {
-        if (reel.isSpin === false) {
-            reel.spinId = setInterval(() => spinReel(reel), 1000);
-            reel.isSpin = true;
-        }
-        reel.symbols.forEach((content) => {
-            content.element.style.backgroundColor = "transparent";
-        });
-        reel.stopButton.disabled = false;
-    });
-});
-
-const hitSlot = () => {
+const hitSlot = slot => {
     const rightDiagonal = slot.map((reel, index) => {
         return reel.symbols[index];
     });
@@ -67,26 +31,63 @@ const hitSlot = () => {
         return leftDiagonal;
     }
     else {
-        return false;
+        return null;
     }
 };
 
-slot.forEach((reel) => {
-    reel.stopButton.addEventListener("click", () => {
-        clearInterval(reel.spinId);
-        reel.isSpin = false;
-        reel.stopButton.disabled = true;
-        if (slot.every((reel) => !reel.isSpin)) {
-            const result = hitSlot();
-            if (result !== false) {
-                result.forEach((reel) => {
-                    reel.element.style.backgroundColor = "orange"
-                });
-                setTimeout(() => window.alert("おめでとう"), 2);
-            }
-            else {
-                window.alert("再挑戦");
-            }
-        }
+const main = () => {
+    const slot = new Array(3).fill(0).map((_, reelIndex) => {
+        const stopButton = document.querySelector(`input:nth-child(${reelIndex + 1})`);
+        stopButton.disabled = true;
+        return {
+            symbols: new Array(3).fill(0).map((_, symbolIndex) => {
+                const element = document.querySelectorAll(`.slot p:nth-child(${reelIndex + 1})`)[symbolIndex];
+                element.textContent = symbolIndex;
+                return {
+                    element,
+                    number: symbolIndex
+                };
+            }),
+            stopButton,
+            spinId: null,
+            isSpin: false
+        };
     });
-});
+
+    const startButton = document.getElementById("startTimer");
+
+    startButton.addEventListener("click", () => {
+        slot.forEach(reel => {
+            if (reel.isSpin === false) {
+                reel.spinId = setInterval(() => spinReel(reel), 100);
+                reel.isSpin = true;
+            }
+            reel.symbols.forEach(symbol => {
+                symbol.element.style.backgroundColor = "transparent";
+            });
+            reel.stopButton.disabled = false;
+        });
+    });
+
+    slot.forEach(reel => {
+        reel.stopButton.addEventListener("click", () => {
+            clearInterval(reel.spinId);
+            reel.isSpin = false;
+            reel.stopButton.disabled = true;
+            if (slot.every((reel) => !reel.isSpin)) {
+                const result = hitSlot(slot);
+                if (result) {
+                    result.forEach((reel) => {
+                        reel.element.style.backgroundColor = "orange"
+                    });
+                    setTimeout(() => window.alert("おめでとう"), 2);
+                }
+                else {
+                    window.alert("再挑戦");
+                }
+            }
+        });
+    });
+};
+
+window.onload = main;
