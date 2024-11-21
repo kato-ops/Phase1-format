@@ -33,6 +33,7 @@ const initGame = () => {
 
 initGame();
 
+//連打とか、反転したやつとかも反応しちゃうから、それ対策しないと
 field.addEventListener("click", event => {
     if (event.target === field) {
         return;
