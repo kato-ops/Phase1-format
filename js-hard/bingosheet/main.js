@@ -21,29 +21,26 @@ const main = () => {
     const hitNumButton = document.getElementById("hitNum");
     const remainItems = new Array(75).fill(0).map((_, i) => i + 1);
 
-    const bingo = {
-        header: "BINGO",
-        sheet: new Array(5).fill(0).map((_, index) => {
-            return createRandArray(5, index * 15 + 1, index * 15 + 15).map(number => {
-                return {
-                    number,
-                    element: document.createElement("td"),
-                }
-            });
-        })
-    };
-
-    bingo.sheet[2][2].number = 0;
-
     const sheetRow = new Array(6).fill(0).map(() => document.createElement("tr"));
 
-    bingo.header.split('').forEach(chara => {
+    "BINGO".split('').forEach(chara => {
         const headerEle = document.createElement("td");
         headerEle.textContent = chara;
         sheetRow[0].appendChild(headerEle);
     });
 
-    bingo.sheet.forEach(column => {
+    const sheet = new Array(5).fill(0).map((_, index) => {
+        return createRandArray(5, index * 15 + 1, index * 15 + 15).map(number => {
+            return {
+                number,
+                element: document.createElement("td"),
+            }
+        });
+    });
+
+    sheet[2][2].number = 0;
+
+    sheet.forEach(column => {
         column.forEach((cell, index) => {
             if (cell.number !== 0) {
                 cell.element.textContent = cell.number;
@@ -65,7 +62,7 @@ const main = () => {
             remainItems.splice(hitItem, 1);
 
             window.alert(`数字は${hitNumber}番です！`);
-            const hitCell = bingo.sheet.flat().find(({ number }) => number === hitNumber);
+            const hitCell = sheet.flat().find(({ number }) => number === hitNumber);
             if (hitCell) {
                 hitCell.element.classList.add("hit-num");
             }
