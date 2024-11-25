@@ -13,7 +13,7 @@ const cardShuffle = (cards) => {
 
 const main = () => {
     const field = document.getElementById("panel");
-    const cardType = 6;
+    const cardType = 4;
     let cards = new Array(cardType).fill(0).flatMap((_, i) => [i + 1, i + 1]).map(number => {
         return {
             number,
@@ -82,7 +82,7 @@ const main = () => {
         selectCard.opend = true;
         event.target.textContent = selectCard.number;
         event.target.classList.replace("back", "hober");
-        opendList.push({ index: selectIndex, element: event.target });
+        opendList = opendList.concat({ index: selectIndex, element: event.target });
 
         if (opendList.length === 2) {
             inProcess = true;
