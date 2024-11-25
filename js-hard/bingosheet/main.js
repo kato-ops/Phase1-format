@@ -19,7 +19,7 @@ const createRandArray = (len, min, max) => {
 const main = () => {
     const bingoView = document.getElementById("view");
     const hitNumButton = document.getElementById("hitNum");
-    let remainItems = new Array(75).fill(0).map((_, i) => i + 1);
+    let remainNumber = new Array(75).fill(0).map((_, i) => i + 1);
 
     const sheetRow = new Array(6).fill(0).map(() => document.createElement("tr"));
 
@@ -56,10 +56,10 @@ const main = () => {
     bingoView.append(...sheetRow);
 
     hitNumButton.addEventListener("click", () => {
-        if (remainItems.length !== 0) {
-            const hitItem = Math.floor(Math.random() * remainItems.length);
-            const hitNumber = remainItems[hitItem];
-            remainItems = remainItems.toSpliced(hitItem, 1);
+        if (remainNumber.length !== 0) {
+            const hitIndex = Math.floor(Math.random() * remainNumber.length);
+            const hitNumber = remainNumber[hitIndex];
+            remainNumber = remainNumber.toSpliced(hitIndex, 1);
 
             window.alert(`数字は${hitNumber}番です！`);
             const hitCell = sheet.flat().find(({ number }) => number === hitNumber);
