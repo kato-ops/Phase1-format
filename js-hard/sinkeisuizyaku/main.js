@@ -14,15 +14,24 @@ const cardShuffle = (cards) => {
 const main = () => {
     const field = document.getElementById("panel");
     const cardType = 4;
+
+    //カード実体として、エレメント自体をカードとした方がイメージしやすいらしい。
+    // ()=>{
+    // const card = document.getElementById();
+    // card.number = 0;
+    // card.opend = false;
+    // }
+    //みたいに、htmlオブジェクトの予約後でなければ、要素を追加してもいいらしい。
     let cards = new Array(cardType).fill(0).flatMap((_, i) => [i + 1, i + 1]).map(number => {
         return {
             number,
             opend: false
         };
     });
-    let opendList;
-    let matchCount;
-    let inProcess;
+    //後で初期化する場合でも、初期値を入れてundefined状態にさせない方がTypeScript的には良いらしい。
+    let opendList = [];
+    let matchCount = 0;
+    let inProcess = false;
 
     const turn = {
         player: 0,
@@ -37,6 +46,8 @@ const main = () => {
         element: document.getElementById("player2Point")
     }];
 
+    //initするならカードを並べる=html要素を追加する
+    //の処理も含めないと違和感があるらしい。
     cards.forEach(() => {
         const element = document.createElement("div");
         field.appendChild(element);
@@ -84,6 +95,8 @@ const main = () => {
         event.target.classList.remove("back");
         opendList = [...opendList, { index: selectIndex, element: event.target }];
 
+        //コードが長すぎる場合には適当なところを関数化して小分けにしたほうが見やすいとのこと。
+        //汎用性というか、関数が使うものを引数としている方が理解しやすい関数にも出来るとのこと。
         if (opendList.length === 2) {
             inProcess = true;
             if (cards[opendList[0].index].number !== cards[opendList[1].index].number) {
