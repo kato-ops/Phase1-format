@@ -81,8 +81,8 @@ const main = () => {
 
         selectCard.opend = true;
         event.target.textContent = selectCard.number;
-        event.target.classList.replace("back", "hober");
-        opendList = opendList.concat({ index: selectIndex, element: event.target });
+        event.target.classList.remove("back");
+        opendList = [...opendList, { index: selectIndex, element: event.target }];
 
         if (opendList.length === 2) {
             inProcess = true;
@@ -90,7 +90,7 @@ const main = () => {
                 setTimeout(() => {
                     opendList.forEach(({ index, element }) => {
                         element.textContent = "";
-                        element.classList.replace("hober", "back");
+                        element.classList.add("back");
                         cards[index].opend = false;
                     });
                     opendList = [];
@@ -106,7 +106,7 @@ const main = () => {
 
                 setTimeout(() => {
                     opendList.forEach(({ element }) => {
-                        element.classList.replace("hober", "finish");
+                        element.classList.add("finish");
                     });
                     matchCount++;
                     opendList = [];
